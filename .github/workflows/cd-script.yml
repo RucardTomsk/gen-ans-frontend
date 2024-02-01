@@ -1,0 +1,39 @@
+name: GitHub Actions CD
+on:
+  push:
+    branches: [develop]
+
+  workflow_dispatch:
+
+env:
+  SERVER_HOST: 92.63.64.241
+  SERVER_USER: laborant
+  SERVER_PATH: gen-ans
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install yarn
+        run: npm install yarn
+      - name: install modules
+        run: yarn install
+      - name: build project
+        run: yarn build
+
+      # Setup key
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
+      - run: chmod 600 "$HOME/.ssh/key"
+
+      # Deploy
+      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{env.SERVER_USER}}@${{env.SERVER_HOST}}:${{env.SERVER_PATH}}
