@@ -1,12 +1,13 @@
 import {useProject} from "../hooks/useProject.ts";
 import React, {useState} from "react";
 import {Button, Dropdown, MenuProps, Skeleton, Typography} from "antd";
-import AddProjectModal from "../../projects/ui/AddProjectModal.tsx";
 import {DeleteOutlined, EditOutlined, SettingOutlined} from "@ant-design/icons";
 import PhotoCard from "./PhotoCard.tsx";
 import AddPhotoCard from "./AddPhotoCard.tsx";
 import RemoveModal from "./RemoveProjectModal.tsx";
 import EditProjectModal from "./EditProjectModal.tsx";
+import AddPhotoModal from "./AddPhotoModal.tsx";
+import RemovePhotoModal from "./RemovePhotoModal.tsx";
 
 const items: MenuProps['items'] = [
     {
@@ -26,13 +27,21 @@ const ProjectPage = () => {
     const {getData, edit} = useProject();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenRemove, setIsOpenRemove] = useState(false);
+    const [isOpenPhoto, setIsOpenPhoto] = useState(false);
+    const [isOpenPhotoRemove, setIsOpenPhotoRemove] = useState(false);
+    const [isOpenPhotoEdit, setIsOpenPhotoEdit] = useState(false);
+    const [selectedPhotoId, setSelectedPhotoId] = useState("");
 
-    console.log(getData.data)
-
-    const onClick: MenuProps['onClick'] = ({ key }) => {
+    const onClick: MenuProps['onClick'] = ({ key, domEvent }) => {
+        domEvent.preventDefault();
         if (key === "edit") setIsOpen(true);
         else if (key === "remove") setIsOpenRemove(true);
     };
+
+    const onPhotoCard = (id: string, action: "remove" | "edit") => {
+        setSelectedPhotoId(id);
+        action === "remove" ? setIsOpenPhotoRemove(true) : setIsOpenPhotoEdit(true);
+    }
 
     if (getData.isError) return <div>ОШИБКА</div>
 
@@ -50,7 +59,7 @@ const ProjectPage = () => {
                 <Typography.Paragraph>{getData.data?.project.description}</Typography.Paragraph>
             </div>
             <div className={"w-full grid grid-cols-4 gap-5"}>
-                <AddPhotoCard onClick={() => setIsOpen(true)}/>
+                <AddPhotoCard onClick={() => setIsOpenPhoto(true)}/>
                 {
                     getData.data?.project.photos.map(it =>
                         <PhotoCard
@@ -60,6 +69,7 @@ const ProjectPage = () => {
                             name={it.name}
                             date={it.created_at}
                             description={it.description}
+                            onAction={onPhotoCard}
                         />
                     )
                 }
@@ -73,6 +83,8 @@ const ProjectPage = () => {
                 }}
             />
             <RemoveModal isOpen={isOpenRemove} onClose={() => setIsOpenRemove(false)}/>
+            <AddPhotoModal isOpen={isOpenPhoto} onClose={() => setIsOpenPhoto(false)}/>
+            <RemovePhotoModal isOpen={isOpenPhotoRemove} onClose={() => setIsOpenPhotoRemove(false)} photoId={selectedPhotoId}/>
         </div>
     )
 }
