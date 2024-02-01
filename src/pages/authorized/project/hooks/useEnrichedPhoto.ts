@@ -3,6 +3,8 @@ import segmentationService from "../../../../services/segmentation/SegmentationS
 import {useParams} from "react-router-dom";
 import {CreateEnrichedPhotoDto} from "../../../../services/segmentation/models/CreateEnrichedPhotoDto.ts";
 import {projectQueryKeys} from "../../../../services/project/projectQueryKeys.ts";
+import EditPhotoModal from "../ui/EditPhotoModal.tsx";
+import {EditEnrichedPhotoDto} from "../../../../services/segmentation/models/EditEnrichedPhotoDto.ts";
 
 export const useEnrichedPhoto = () => {
 
@@ -12,6 +14,14 @@ export const useEnrichedPhoto = () => {
     const add = useMutation(
         {
             mutationFn: (data: CreateEnrichedPhotoDto) => segmentationService.addEnrichedPhoto(projectId || "", convertFilesToFormData(data)),
+            onSuccess: () => {
+                queryClient.invalidateQueries({queryKey: projectQueryKeys.project(projectId || "")});
+            }
+        })
+
+    const edit= useMutation(
+        {
+            mutationFn: (data: {id: string, data: EditEnrichedPhotoDto}) => segmentationService.editEnrichedPhoto(data.id, data.data),
             onSuccess: () => {
                 queryClient.invalidateQueries({queryKey: projectQueryKeys.project(projectId || "")});
             }
@@ -27,6 +37,7 @@ export const useEnrichedPhoto = () => {
 
     return {
         add,
+        edit,
         remove
     }
 }

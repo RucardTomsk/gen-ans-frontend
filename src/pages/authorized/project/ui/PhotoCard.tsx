@@ -1,7 +1,7 @@
 import {Dropdown, MenuProps, Typography} from "antd";
 import React from "react";
 import {convertDateStringToNormalString} from "../../../../helpers/stringHelpers.ts";
-import {generatePath, Link} from "react-router-dom";
+import {generatePath, Link, useParams} from "react-router-dom";
 import {Links} from "../../../../constants/links.ts";
 import {DeleteOutlined, EditOutlined, EllipsisOutlined} from "@ant-design/icons";
 
@@ -27,7 +27,7 @@ const items: MenuProps['items'] = [
         danger: true,
     }
 ];
-const ProjectCard = (props: CardProps) =>  {
+const PhotoCard = (props: CardProps) =>  {
 
     const {
         image,
@@ -37,6 +37,8 @@ const ProjectCard = (props: CardProps) =>  {
         description,
         onAction
     } = props;
+
+    const {id: projectId} = useParams();
 
     const onClick: MenuProps['onClick'] = ({ key }) => {
         if (key === "edit") onAction(id, "edit");
@@ -55,7 +57,7 @@ const ProjectCard = (props: CardProps) =>  {
                     <EllipsisOutlined rotate={90} className={"text-white text-2xl"} />
                 </Dropdown>
                 <Link
-                    to={generatePath(Links.Authorized.Project, {id})}
+                    to={generatePath(Links.Authorized.EnrichedPhoto, {projectId: projectId || "", id})}
                     className={"flex h-max flex-1 no-underline flex-col p-2 bg-black/60"}>
                     <div className={"flex flex-col text-center "}>
                         <Typography.Text strong className={"text-white"}>{name}</Typography.Text>
@@ -72,4 +74,4 @@ const ProjectCard = (props: CardProps) =>  {
     )
 }
 
-export default ProjectCard;
+export default PhotoCard;

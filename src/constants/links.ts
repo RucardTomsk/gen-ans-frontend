@@ -6,6 +6,7 @@ export const Links = {
     },
     Authorized: {
         Projects: '/projects',
-        Project: '/project/:id'
+        Project: '/project/:id',
+        EnrichedPhoto: '/project/:projectId/slice/:id'
     }
 }

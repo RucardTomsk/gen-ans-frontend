@@ -8,11 +8,12 @@ import RemoveModal from "./RemoveProjectModal.tsx";
 import EditProjectModal from "./EditProjectModal.tsx";
 import AddPhotoModal from "./AddPhotoModal.tsx";
 import RemovePhotoModal from "./RemovePhotoModal.tsx";
+import EditPhotoModal from "./EditPhotoModal.tsx";
 
 const items: MenuProps['items'] = [
     {
         key: 'edit',
-        label: "Редакировать",
+        label: "Редактировать",
         icon: <EditOutlined/>
     },
     {
@@ -24,7 +25,7 @@ const items: MenuProps['items'] = [
 ];
 const ProjectPage = () => {
 
-    const {getData, edit} = useProject();
+    const {getData} = useProject();
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenRemove, setIsOpenRemove] = useState(false);
     const [isOpenPhoto, setIsOpenPhoto] = useState(false);
@@ -41,6 +42,12 @@ const ProjectPage = () => {
     const onPhotoCard = (id: string, action: "remove" | "edit") => {
         setSelectedPhotoId(id);
         action === "remove" ? setIsOpenPhotoRemove(true) : setIsOpenPhotoEdit(true);
+    }
+
+    const getDefaultValues = () => {
+        const data =
+            getData.data?.project.photos.find(it => it.id === selectedPhotoId)
+        return ({name: data?.name || "", description: data?.description || ""})
     }
 
     if (getData.isError) return <div>ОШИБКА</div>
@@ -85,6 +92,12 @@ const ProjectPage = () => {
             <RemoveModal isOpen={isOpenRemove} onClose={() => setIsOpenRemove(false)}/>
             <AddPhotoModal isOpen={isOpenPhoto} onClose={() => setIsOpenPhoto(false)}/>
             <RemovePhotoModal isOpen={isOpenPhotoRemove} onClose={() => setIsOpenPhotoRemove(false)} photoId={selectedPhotoId}/>
+            <EditPhotoModal
+                isOpen={isOpenPhotoEdit}
+                onClose={() => setIsOpenPhotoEdit(false)}
+                defaultValues={getDefaultValues()}
+                photoId={selectedPhotoId}
+            />
         </div>
     )
 }

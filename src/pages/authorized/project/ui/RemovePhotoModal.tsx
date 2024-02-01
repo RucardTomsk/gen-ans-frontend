@@ -22,7 +22,7 @@ const RemoveModal = (props: RemoveModalProps) => {
 
     const onRemove = () => {
         remove.mutateAsync(photoId).then(() => {
-            navigate(Links.Authorized.Projects);
+            onClose && onClose();
         })
     }
 
