@@ -114,7 +114,7 @@ const EnrichedPhotoPage = () => {
                         selectedMineral={selectedMineral}
                     />
                     {
-                        target.length > 3 &&
+                        target.length > 1 &&
                         <Button onClick={addSegment}>Создать</Button>
                     }
                     {
