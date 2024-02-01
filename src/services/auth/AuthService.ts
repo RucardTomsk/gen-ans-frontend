@@ -2,29 +2,23 @@ import {instanceAccount} from "../../api/instances.ts";
 import {AccountLoginDto} from "./models/AccountLoginDto.ts";
 import {AccountRegisterDto} from "./models/AccountRegisterDto.ts";
 import {TokenDto} from "./models/TokenDto.ts";
-import {ChangePasswordDto} from "./models/ChangePasswordDto.ts";
 
 class AuthService {
     async login(data: AccountLoginDto) {
-        return instanceAccount.post<TokenDto>('auth/login', data)
+        return instanceAccount.post<TokenDto>('user/login', data)
     }
 
     async register(data: AccountRegisterDto) {
-        return instanceAccount.post<TokenDto>('auth/register', data);
+        return instanceAccount.post<TokenDto>('user/register', data);
     }
 
     async logout() {
-        return instanceAccount.post('auth/logout')
+        return instanceAccount.post('user/logout')
     }
 
-    async refreshToken(accessToken: string | null, refreshToken: string | null) {
-        return instanceAccount.post<TokenDto>(`auth/refresh`, { accessToken, refreshToken });
+    async refreshToken(refreshToken: string | null) {
+        return instanceAccount.post<TokenDto>(`user/refresh`, { refreshToken });
     }
-
-    async changePassword(data: ChangePasswordDto) {
-        return instanceAccount.post(`auth/change-password`, data);
-    }
-
 }
 
 const authService = new AuthService();

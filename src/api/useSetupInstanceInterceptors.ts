@@ -2,14 +2,14 @@ import {useAuth} from "../providers/auth";
 import {useMutation} from "@tanstack/react-query";
 import {AxiosError, AxiosResponse} from "axios";
 import {getAccessToken, getRefreshToken} from "../helpers/localStorageHelpers.ts";
-import {instanceAccount, instanceBackend, instanceFileManager} from "./instances.ts";
+import {instanceAccount, instanceBackend} from "./instances.ts";
 import authService from "../services/auth/AuthService.ts";
 
 export const useSetupInstanceInterceptors = () => {
 
     const { signOut } = useAuth();
     const {mutate: refreshToken } = useMutation({
-        mutationFn: () => authService.refreshToken(getAccessToken(), getRefreshToken()),
+        mutationFn: () => authService.refreshToken(getRefreshToken()),
         onError: () => {
             signOut(false);
         }
@@ -39,5 +39,4 @@ export const useSetupInstanceInterceptors = () => {
 
     instanceAccount.interceptors.response.use(onResponse, onResponseError);
     instanceBackend.interceptors.response.use(onResponse, onResponseError);
-    instanceFileManager.interceptors.response.use(onResponse, onResponseError);
 }

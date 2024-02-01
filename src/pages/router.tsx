@@ -1,6 +1,6 @@
-import {createBrowserRouter, generatePath, Navigate} from "react-router-dom";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import {Links} from "../constants/links.ts";
-import CasePage from "./authorized/case";
+import ProjectsPage from "./authorized/projects";
 import LoginPage from "./unauthorized/login";
 import RegisterPage from "./unauthorized/register";
 import RootPage from "./authorized/RootPage.tsx";
@@ -14,11 +14,15 @@ export const authorizedRoutes = () =>
             children: [
                 {
                     path: "/",
-                    element: <Navigate to={generatePath(Links.Authorized.Case, {caseId: "683600e2-2e90-43f5-afa9-2415615441ca"})}/>
+                    element: <Navigate to={Links.Authorized.Projects}/>
                 },
                 {
-                    path: Links.Authorized.Case,
-                    element: <CasePage/>,
+                    path: Links.Authorized.Projects,
+                    element: <ProjectsPage/>,
+                },
+                {
+                    path: Links.Authorized.Project,
+                    element: <div>HELL</div>,
                 }
             ]
         },

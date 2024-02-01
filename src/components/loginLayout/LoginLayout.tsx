@@ -1,8 +1,7 @@
 import React, {ReactNode} from "react";
 import {Typography} from "antd";
-import {useTranslation} from "react-i18next";
 
-import bgLink from "./../../pages/authorized/case/ui/image.jpg";
+const bgLink = "https://wallbox.ru/resize/1600x1200/wallpapers/main/201217/peyzazhi-fb21bc1a89c4.jpg";
 
 interface Props {
     children?: ReactNode
@@ -12,12 +11,12 @@ const LoginLayout: React.FC<Props> = ({children}) => {
     return (
         <div className={"flex flex-col lg:flex-row w-screen h-screen"}>
             <div className={"flex w-screen md:w-full bg-cover bg-center"} style={{backgroundImage: `url(${bgLink})`}}>
-                <div className={"flex flex-col text-start w-full h-full bg-white/70 px-6 md:px-14 xl:px-28"}>
+                <div className={"flex flex-col text-start w-full h-full bg-white/80 px-6 md:px-14 xl:px-28"}>
                     <Typography.Text strong className={"whitespace-pre-line text-cyan-700 text-xl md:text-4xl mt-6 md:mt-24"}>
                         {"GEN`ANS"}
                     </Typography.Text>
                     <Typography.Text className={"text-cyan-700 md:text-xl mb-12 mt-4"}>
-                        {"Платформа для исследования"}
+                        {"Платформа для исследования "}
                     </Typography.Text>
                 </div>
             </div>

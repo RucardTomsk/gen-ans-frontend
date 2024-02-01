@@ -1,7 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import authService from "../../../services/auth/AuthService.ts";
 import {
-    getAccessToken,
     getRefreshToken,
     getSessionToken,
     setAccessToken
@@ -14,7 +13,7 @@ export const useRefreshToken = (isAuth: boolean) => {
 
     const {data, isSuccess} = useQuery({
         queryKey: authQueryKeys.refreshToken(),
-        queryFn: () => authService.refreshToken(getAccessToken(), getRefreshToken() || getSessionToken()),
+        queryFn: () => authService.refreshToken(getRefreshToken() || getSessionToken()),
         select: ({data}) => data,
         enabled: isAuth && (!!getRefreshToken() || !!getSessionToken()),
         refetchInterval: REFRESH_TOKEN_INTERVAL,
@@ -23,8 +22,8 @@ export const useRefreshToken = (isAuth: boolean) => {
 
     if (isSuccess) {
         if (data) {
-            setAuthHeaderToInstance(data.accessToken);
-            setAccessToken(data.accessToken);
+            setAuthHeaderToInstance(data.token);
+            setAccessToken(data.token);
         }
     }
 }

@@ -1,4 +1,4 @@
 export interface TokenDto {
-    accessToken: string,
+    token: string,
     refreshToken: string
 }

@@ -1,6 +1,5 @@
 import React, {ReactNode} from "react";
 import Header from "./Header.tsx";
-import WidgetsContainer from "../../../widgets";
 
 interface Props {
     children?: ReactNode,
