@@ -5,6 +5,8 @@ import {segmentationQueryKeys} from "../../../../services/segmentation/segmentat
 import {CreateSegmentDto} from "../../../../services/segmentation/models/CreateSegmentDto.ts";
 import {materialQueryKeys} from "../../../../services/material/materialQueryKeys.ts";
 import materialService from "../../../../services/material/MaterialService.ts";
+import {CreateMineral} from "../../../../services/material/models/CreateMineral.ts";
+import {EditMineral} from "../../../../services/material/models/EditMineral.ts";
 
 export function useSlice() {
 
@@ -40,10 +42,39 @@ export function useSlice() {
             }
         })
 
+    const createMineral = useMutation(
+        {
+            mutationFn: (data: CreateMineral) => materialService.addMineral(data),
+            onSuccess: () => {
+                queryClient.invalidateQueries({queryKey: materialQueryKeys.minerals()});
+            }
+        })
+
+    const editMineral = useMutation(
+        {
+            mutationFn: (data: {mineralId: string, data: EditMineral}) => materialService.editMineral(data.mineralId, data.data),
+            onSuccess: () => {
+                queryClient.invalidateQueries({queryKey: materialQueryKeys.minerals()});
+                queryClient.invalidateQueries({queryKey: segmentationQueryKeys.photo(id || "")});
+            }
+        })
+
+    const deleteMineral = useMutation(
+        {
+            mutationFn: (id: string) => materialService.deleteMineral(id),
+            onSuccess: () => {
+                queryClient.invalidateQueries({queryKey: materialQueryKeys.minerals()});
+                queryClient.invalidateQueries({queryKey: segmentationQueryKeys.photo(id || "")});
+            }
+        })
+
     return {
         getData,
         getMinerals,
         createSegment,
-        deleteSegment
+        deleteSegment,
+        createMineral,
+        editMineral,
+        deleteMineral
     }
 }

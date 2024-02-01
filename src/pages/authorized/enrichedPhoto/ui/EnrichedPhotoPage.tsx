@@ -6,6 +6,8 @@ import Segments from "./Segments.tsx";
 import SegmentTarget from "./SegmentTarget.tsx";
 import {Point} from "../../../../services/segmentation/models/Point.ts";
 import {MineralDto} from "../../../../services/material/models/MineralsDto.ts";
+import {PlusOutlined} from "@ant-design/icons";
+import Minerals from "./Minerals.tsx";
 
 const EnrichedPhotoPage = () => {
 
@@ -106,22 +108,11 @@ const EnrichedPhotoPage = () => {
                     </g>
                 </svg>
                 <div className={"flex flex-col gap-5"}>
-                    <div className={"flex flex-col gap-1"}>
-                        <Typography.Text strong={true} type={"secondary"} className={"text-lg mb-1"}>ДОСТУПНЫЕ МИНЕРАЛЫ</Typography.Text>
-                        <Radio.Group onChange={(e) => setSelectedMineral(e.target.value)} value={selectedMineral}>
-                        {
-                            getMinerals?.data?.minerals.map(it =>
-                                <Radio value={it.id} key={it.id} className={"flex items-start gap-2"}>
-                                    <span className={"mt-2 shadow-md w-5 h-5 rounded-full"} style={{backgroundColor: it.color}}></span>
-                                    <div className={"flex flex-col"}>
-                                        <Typography.Text strong={true}>Название: {it.name}</Typography.Text>
-                                        <Typography.Text>Описание: {it.description}</Typography.Text>
-                                    </div>
-                                </Radio>
-                            )
-                        }
-                        </Radio.Group>
-                    </div>
+                    <Minerals
+                        minerals={getMinerals?.data?.minerals || []}
+                        setSelectedMineral={(id: string) => setSelectedMineral(id)}
+                        selectedMineral={selectedMineral}
+                    />
                     {
                         target.length > 3 &&
                         <Button onClick={addSegment}>Создать</Button>

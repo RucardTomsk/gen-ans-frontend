@@ -31,7 +31,6 @@ const RegisterPage: React.FC = () => {
     return (
         <LoginLayout>
             <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-2 mt-12 md:mt-12"}>
-                <img alt={"logo"} src={"https://imageup.ru/img8/4590849/logo.jpg"} className={"w-[200px] md:w-[300px] mb-11 px-4"}/>
                 <div className={"flex flex-col gap-1"}>
                     <Typography.Text className={"text-3xl mb-7"}>{t("registration")}</Typography.Text>
                     <Typography.Text className={"text-base text-gray-400"}>{t("login")}</Typography.Text>
