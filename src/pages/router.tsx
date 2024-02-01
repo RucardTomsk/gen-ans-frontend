@@ -5,6 +5,7 @@ import LoginPage from "./unauthorized/login";
 import RegisterPage from "./unauthorized/register";
 import RootPage from "./authorized/RootPage.tsx";
 import NotFoundPage from "./common/notFound";
+import ProjectPage from "./authorized/project/ui/ProjectPage.tsx";
 
 export const authorizedRoutes = () =>
     createBrowserRouter([
@@ -22,7 +23,7 @@ export const authorizedRoutes = () =>
                 },
                 {
                     path: Links.Authorized.Project,
-                    element: <div>HELL</div>,
+                    element: <ProjectPage/>,
                 }
             ]
         },

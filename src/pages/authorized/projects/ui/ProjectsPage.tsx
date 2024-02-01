@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useProjects} from "../hooks/useProjects.ts";
-import {Typography} from "antd";
+import {Skeleton, Typography} from "antd";
 import ProjectCard from "./ProjectCard.tsx";
 import AddProjectCard from "./AddProjectCard.tsx";
 import AddProjectModal from "./AddProjectModal.tsx";
@@ -56,7 +56,9 @@ const ProjectsPage: React.FC = () => {
     const {data, isLoading, isError} = useProjects();
     const [isOpen, setIsOpen] = useState(false);
 
-    if (isError) return <div></div>
+    if (isError) return <div>ОШИБКА</div>
+
+    if (isLoading) return <Skeleton className={"p-10"}/>
 
     return (
         <div className={"flex gap-10 flex-col items-center p-10"}>

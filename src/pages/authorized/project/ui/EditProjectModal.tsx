@@ -1,36 +1,39 @@
-import {Button, Checkbox, Input, Modal, Select, Typography} from "antd";
+import {Button, Modal, Typography} from "antd";
 import InputControl from "../../../../components/input/InputControl.tsx";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {useCreateProject} from "../hooks/useCreateProject.ts";
 import {validators} from "../../../../helpers/validators.ts";
 import TextAreaControl from "../../../../components/input/TextAreaControl.tsx";
-import {generatePath, useNavigate} from "react-router-dom";
-import {Links} from "../../../../constants/links.ts";
+import {useProject} from "../hooks/useProject.ts";
 
-interface AddModalProps {
+interface EditProjectModalProps {
     isOpen?: boolean,
-    onClose?(): void
+    onClose?(): void,
+    defaultValues: EditProjectForm
 }
 
-type CreateProjectForm = {
+type EditProjectForm = {
     name: string,
     description: string,
 }
 
-const AddProjectModal = (props:AddModalProps) => {
+const EditProjectModal = (props: EditProjectModalProps) => {
 
-    const {isOpen, onClose} = props;
-    const navigate = useNavigate();
-    const {mutateAsync: createProject, isPending} = useCreateProject();
+    const {
+        isOpen,
+        onClose,
+        defaultValues
+    } = props;
+
+    const {edit} = useProject();
 
     const {
         control,
         handleSubmit,
-    } = useForm<CreateProjectForm>();
+    } = useForm<EditProjectForm>({defaultValues});
 
-    const onSubmit: SubmitHandler<CreateProjectForm> = (data) => {
-        createProject(data).then((res) => {
-            navigate(generatePath(Links.Authorized.Project, {id: res.data.ID}))
+    const onSubmit: SubmitHandler<EditProjectForm> = (data) => {
+        edit.mutateAsync(data).then(() => {
+            onClose && onClose();
         })
     }
 
@@ -38,8 +41,7 @@ const AddProjectModal = (props:AddModalProps) => {
         <Modal
             open={isOpen}
             onCancel={onClose}
-            title={<Typography.Text className={"text-xl text-cyan-700"}>{"Создать проект"}</Typography.Text>}
-            okText={"Создать"}
+            title={<Typography.Text className={"text-xl text-cyan-700"}>{"Редактировать проект"}</Typography.Text>}
             footer={null}
         >
             <form
@@ -62,12 +64,12 @@ const AddProjectModal = (props:AddModalProps) => {
                     />
                 </div>
                 <div className={"flex flex-col gap-2 mt-3"}>
-                    <Button type={"primary"} htmlType={"submit"} loading={isPending}>Создать</Button>
-                    <Button disabled={isPending} onClick={onClose}>Отмена</Button>
+                    <Button type={"primary"} htmlType={"submit"} loading={edit.isPending}>Сохранить</Button>
+                    <Button disabled={edit.isPending} onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>
     )
 }
 
-export default AddProjectModal;
+export default EditProjectModal;

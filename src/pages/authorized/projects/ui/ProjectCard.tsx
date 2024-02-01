@@ -29,7 +29,7 @@ const ProjectCard = (props: CardProps) =>  {
         >
             <div
                 className={"flex h-32 rounded-t-md w-full bg-cover bg-center"}
-                style={{backgroundImage: `url(${bgLink || image})`}}
+                style={{backgroundImage: `url(${image || bgLink})`}}
             />
             <div className={"flex flex-1 flex-col p-2"}>
                 <div className={"flex flex-col text-center "}>

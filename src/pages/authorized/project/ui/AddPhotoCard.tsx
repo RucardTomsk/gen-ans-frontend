@@ -10,11 +10,11 @@ const AddProjectCard = (props: AddCardProps) => {
 
     return (
         <div
-            className={"flex flex-col p-3 gap-3 items-center justify-center rounded-md border-2 border-cyan-700 border-solid cursor-pointer hover:bg-opacity-5 hover:bg-cyan-700 transition"}
+            className={"flex p-3 flex-col gap-3 items-center justify-center rounded-md border-2 border-cyan-700 border-solid cursor-pointer hover:bg-opacity-5 hover:bg-cyan-700 transition"}
             onClick={onClick}
         >
             <PlusOutlined className={"text-cyan-700 text-3xl"}/>
-            <Typography.Text strong className={"text-cyan-700 text-center whitespace-pre"}>{`СОЗДАТЬ \nПРОЕКТ`}</Typography.Text>
+            <Typography.Text strong className={"text-cyan-700 text-center whitespace-pre"}>{`ДОБАВИТЬ \nСРЕЗ`}</Typography.Text>
         </div>
     )
 }
