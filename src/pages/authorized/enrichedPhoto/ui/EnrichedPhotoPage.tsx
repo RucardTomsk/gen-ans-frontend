@@ -1,5 +1,5 @@
 import {useSlice} from "../hooks/useSlice.ts";
-import {Button, Typography} from "antd";
+import {Button, Skeleton, Typography} from "antd";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import * as d3 from "d3";
 import Segments from "./Segments.tsx";
@@ -105,23 +105,28 @@ const EnrichedPhotoPage = () => {
                     </g>
                 </svg>
                 <div className={"flex flex-col gap-5"}>
-                    <Minerals
-                        minerals={getMinerals?.data?.minerals || []}
-                        setSelectedMineral={(id: string) => setSelectedMineral(id)}
-                        selectedMineral={selectedMineral}
-                    />
                     {
-                        target.length > 1 &&
-                        <Button onClick={addSegment}>Создать</Button>
-                    }
-                    {
-                        selectedSegment &&
-                        <div className={"flex flex-col"}>
-                            <Typography.Text strong={true} type={"secondary"} className={"text-lg"}>МИНЕРАЛ ВЫБРАННОЙ ОБЛАСТИ</Typography.Text>
-                            <Typography.Text strong={true}>Название: {selectedSegment.mineral.name}</Typography.Text>
-                            <Typography.Text>Описание: {selectedSegment.mineral.description}</Typography.Text>
-                            <Button danger onClick={onRemoveSegment}>Удалить область</Button>
-                        </div>
+                        getMinerals.isLoading ? <Skeleton/> :
+                            <>
+                                <Minerals
+                                    minerals={getMinerals?.data?.minerals || []}
+                                    setSelectedMineral={(id: string) => setSelectedMineral(id)}
+                                    selectedMineral={selectedMineral}
+                                />
+                                {
+                                    target.length > 1 &&
+                                    <Button onClick={addSegment}>Создать</Button>
+                                }
+                                {
+                                    selectedSegment &&
+                                    <div className={"flex flex-col"}>
+                                        <Typography.Text strong={true} type={"secondary"} className={"text-lg"}>МИНЕРАЛ ВЫБРАННОЙ ОБЛАСТИ</Typography.Text>
+                                        <Typography.Text strong={true}>Название: {selectedSegment.mineral.name}</Typography.Text>
+                                        <Typography.Text>Описание: {selectedSegment.mineral.description}</Typography.Text>
+                                        <Button danger onClick={onRemoveSegment}>Удалить область</Button>
+                                    </div>
+                                }
+                            </>
                     }
                 </div>
 

@@ -13,10 +13,10 @@ const LoginLayout: React.FC<Props> = ({children}) => {
             <div className={"flex w-screen md:w-full bg-cover bg-center"} style={{backgroundImage: `url(${bgLink})`}}>
                 <div className={"flex flex-col text-start w-full h-full bg-white/80 px-6 md:px-14 xl:px-28"}>
                     <Typography.Text strong className={"whitespace-pre-line text-cyan-700 text-xl md:text-4xl mt-6 md:mt-24"}>
-                        {"GEN`ANS"}
+                        {"GEN AN`S"}
                     </Typography.Text>
                     <Typography.Text className={"text-cyan-700 md:text-xl mb-12 mt-4"}>
-                        {"Платформа для исследования "}
+                        {"Передовая исследовательская платформа"}
                     </Typography.Text>
                 </div>
             </div>
