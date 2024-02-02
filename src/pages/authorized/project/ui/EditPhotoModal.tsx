@@ -30,7 +30,6 @@ const EditPhotoModal = (props: EditPhotoModalProps) => {
 
     const {edit} = useEnrichedPhoto();
 
-    console.log(defaultValues)
 
     const {
         control,
@@ -49,7 +48,6 @@ const EditPhotoModal = (props: EditPhotoModalProps) => {
         setValue("description", defaultValues.description);
     }, [defaultValues])
 
-    console.log(defaultValues)
 
     return (
         <Modal

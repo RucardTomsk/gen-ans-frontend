@@ -1,12 +1,11 @@
 import {useSlice} from "../hooks/useSlice.ts";
-import {Button, Radio, Typography} from "antd";
+import {Button, Typography} from "antd";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import * as d3 from "d3";
 import Segments from "./Segments.tsx";
 import SegmentTarget from "./SegmentTarget.tsx";
 import {Point} from "../../../../services/segmentation/models/Point.ts";
 import {MineralDto} from "../../../../services/material/models/MineralsDto.ts";
-import {PlusOutlined} from "@ant-design/icons";
 import Minerals from "./Minerals.tsx";
 
 const EnrichedPhotoPage = () => {
@@ -22,8 +21,6 @@ const EnrichedPhotoPage = () => {
     const [target, setTarget] = useState<Point[]>([]);
     const [selectedSegment, setSelectedSegment] = useState<{id: string, mineral: MineralDto} | undefined>();
     const [selectedMineral, setSelectedMineral] = useState("");
-
-    console.log(getMinerals?.data?.minerals)
 
     // @ts-ignore
     const updateTargetCoordinates = useCallback((event) => {

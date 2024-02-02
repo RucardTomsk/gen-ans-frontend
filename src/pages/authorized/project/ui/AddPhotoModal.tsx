@@ -3,7 +3,6 @@ import InputControl from "../../../../components/input/InputControl.tsx";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {validators} from "../../../../helpers/validators.ts";
 import TextAreaControl from "../../../../components/input/TextAreaControl.tsx";
-import {useNavigate} from "react-router-dom";
 import {useEnrichedPhoto} from "../hooks/useEnrichedPhoto.ts";
 import React from "react";
 
@@ -35,7 +34,6 @@ const AddPhotoModal = (props: AddPhotoModalProps) => {
     }
 
     const onSubmit: SubmitHandler<AddPhotoForm> = (data) => {
-        console.log(data)
         add.mutateAsync(data).then(() => {
             onClose && onClose();
         })

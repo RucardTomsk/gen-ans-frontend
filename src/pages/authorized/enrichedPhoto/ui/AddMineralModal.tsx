@@ -28,7 +28,6 @@ const AddMineralModal = (props: AddPhotoModalProps) => {
         handleSubmit
     } = useForm<AddPhotoForm>();
     const onSubmit: SubmitHandler<AddPhotoForm> = (data) => {
-        console.log(data)
         createMineral.mutateAsync(data).then(() => {
             onClose && onClose();
         })
