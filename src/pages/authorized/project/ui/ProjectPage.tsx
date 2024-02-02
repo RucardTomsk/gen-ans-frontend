@@ -65,7 +65,7 @@ const ProjectPage = () => {
                 </div>
                 <Typography.Paragraph>{getData.data?.project.description}</Typography.Paragraph>
             </div>
-            <div className={"w-full grid grid-cols-4 gap-5"}>
+            <div className={"w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5"}>
                 <AddPhotoCard onClick={() => setIsOpenPhoto(true)}/>
                 {
                     getData.data?.project.photos.map(it =>

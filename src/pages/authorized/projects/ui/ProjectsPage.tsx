@@ -5,52 +5,6 @@ import ProjectCard from "./ProjectCard.tsx";
 import AddProjectCard from "./AddProjectCard.tsx";
 import AddProjectModal from "./AddProjectModal.tsx";
 
-const DATA = [
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-    {
-        date: "01 01 2023",
-        description: "Описание"
-    },
-]
 const ProjectsPage: React.FC = () => {
 
     const {data, isLoading, isError} = useProjects();
@@ -65,7 +19,7 @@ const ProjectsPage: React.FC = () => {
             <div className={"flex w-full"}>
                 <Typography.Text strong className={"text-3xl text-cyan-700"}>ИССЛЕДОВАТЕЛЬСКИЕ ПРОЕКТЫ</Typography.Text>
             </div>
-            <div className={"w-full grid grid-cols-4 gap-5"}>
+            <div className={"w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"}>
                 <AddProjectCard onClick={() => setIsOpen(true)}/>
                 {
                     data?.projects.map(it =>

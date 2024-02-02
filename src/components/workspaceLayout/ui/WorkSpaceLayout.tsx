@@ -8,7 +8,7 @@ const WorkSpaceLayout: React.FC<Props> = ({children}) => {
 
     return (
         <div className={"flex justify-center max-w-screen min-h-screen bg-gray-50"}>
-            <div className={"flex flex-col w-2/3 min-h-screen bg-white shadow-2xl"}>
+            <div className={"flex flex-col w-full lg:w-4/5 min-h-screen bg-white shadow-2xl"}>
                 <Header/>
                 {children}
             </div>
